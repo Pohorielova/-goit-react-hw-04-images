@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { useState } from 'react';
 import { BsSearch } from 'react-icons/bs';
 import PropTypes from 'prop-types';
 import {
@@ -9,44 +9,79 @@ import {
   SearchFormBtnLabel,
 } from './Searchbar.styled';
 
-class Searchbar extends Component {
-  state = {
-    searchQuery: '',
+export default function Searchbar({ onSubmit }) {
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const handleQueryChange = e => {
+    setSearchQuery(e.currentTarget.value.toLowerCase());
   };
-  handleQueryChange = e => {
-    this.setState({ searchQuery: e.currentTarget.value.toLowerCase() });
-  };
-  handleSubmit = e => {
+  const handleSubmit = e => {
     e.preventDefault();
-    if (this.state.searchQuery.trim() === '') {
+    if (searchQuery.trim() === '') {
       alert('atatata');
       return;
     }
-    this.props.onSubmit(this.state.searchQuery);
-    this.setState({ searchQuery: '' });
+    onSubmit(searchQuery);
+    setSearchQuery('');
   };
-  render() {
-    return (
-      <HeaderSearch>
-        <SearchForm onSubmit={this.handleSubmit}>
-          <SearchFormBtn type="submit">
-            <BsSearch />
-            <SearchFormBtnLabel>Search</SearchFormBtnLabel>
-          </SearchFormBtn>
 
-          <SearchFormInput
-            type="text"
-            autocomplete="off"
-            placeholder="Search images and photos"
-            onChange={this.handleQueryChange}
-          />
-        </SearchForm>
-      </HeaderSearch>
-    );
-  }
+  return (
+    <HeaderSearch>
+      <SearchForm onSubmit={handleSubmit}>
+        <SearchFormBtn type="submit">
+          <BsSearch />
+          <SearchFormBtnLabel>Search</SearchFormBtnLabel>
+        </SearchFormBtn>
+
+        <SearchFormInput
+          type="text"
+          autocomplete="off"
+          placeholder="Search images and photos"
+          onChange={handleQueryChange}
+        />
+      </SearchForm>
+    </HeaderSearch>
+  );
 }
-
-export default Searchbar;
 Searchbar.propTypes = {
   onSubmit: PropTypes.func.isRequired,
 };
+
+// class OldSearchbar extends Component {
+//   state = {
+//     searchQuery: '',
+//   };
+//   handleQueryChange = e => {
+//     this.setState({ searchQuery: e.currentTarget.value.toLowerCase() });
+//   };
+//   handleSubmit = e => {
+//     e.preventDefault();
+//     if (this.state.searchQuery.trim() === '') {
+//       alert('atatata');
+//       return;
+//     }
+//     this.props.onSubmit(this.state.searchQuery);
+//     this.setState({ searchQuery: '' });
+//   };
+//   render() {
+//     return (
+//       <HeaderSearch>
+//         <SearchForm onSubmit={this.handleSubmit}>
+//           <SearchFormBtn type="submit">
+//             <BsSearch />
+//             <SearchFormBtnLabel>Search</SearchFormBtnLabel>
+//           </SearchFormBtn>
+
+//           <SearchFormInput
+//             type="text"
+//             autocomplete="off"
+//             placeholder="Search images and photos"
+//             onChange={this.handleQueryChange}
+//           />
+//         </SearchForm>
+//       </HeaderSearch>
+//     );
+//   }
+// }
+
+// export default Searchbar;
