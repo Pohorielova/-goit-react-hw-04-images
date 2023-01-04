@@ -1,23 +1,26 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { GalleryItem, GalleryItemImg } from './ImageGalleryItem.styled';
-class ImageGalleryItem extends Component {
-  render() {
-    return (
-      <GalleryItem key={this.props.id}>
-        <GalleryItemImg
-          src={this.props.webformatURL}
-          alt={this.props.tags}
-          onClick={e => {
-            this.props.modalFn(e.target.attributes[2].value);
-          }}
-          data-large={this.props.largeImageURL}
-        />
-      </GalleryItem>
-    );
-  }
+export default function ImageGalleryItem({
+  id,
+  webformatURL,
+  tags,
+  modalFn,
+  largeImageURL,
+}) {
+  return (
+    <GalleryItem key={id}>
+      <GalleryItemImg
+        src={webformatURL}
+        alt={tags}
+        onClick={e => {
+          modalFn(e.target.attributes[2].value);
+        }}
+        data-large={largeImageURL}
+      />
+    </GalleryItem>
+  );
 }
-export default ImageGalleryItem;
 
 ImageGalleryItem.propTypes = {
   webformatURL: PropTypes.string.isRequired,
