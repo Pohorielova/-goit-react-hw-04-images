@@ -7,6 +7,7 @@ import Modal from './Modal/Modal';
 import { ColorRing } from 'react-loader-spinner';
 export default function App() {
   const [page, setPage] = useState(1);
+  // eslint-disable-next-line no-unused-vars
   const [searchQuery, setSearchQuery] = useState('');
   const [data, setData] = useState([]);
   const [showModal, setShowModal] = useState(false);
@@ -23,6 +24,7 @@ export default function App() {
   const toggleModal = () => {
     setShowModal(({ showModal }) => !showModal);
   };
+  // eslint-disable-next-line no-unused-vars
   const setingModalImage = linkImg => {
     return setModalImage(({ modalImage }) => linkImg);
   };
@@ -51,7 +53,6 @@ export default function App() {
   }, [searchQuery, page]);
 
   const handleFormSubmit = searchQuery => {
-    setSearchQuery(searchQuery);
     setPage(1);
     setData([]);
   };
